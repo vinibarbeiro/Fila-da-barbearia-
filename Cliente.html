@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Barbearia XB - Cliente</title>
+<style>
+html, body { margin:0; padding:0; width:100%; height:100%; background:#000; color:#fff; font-family:Arial, sans-serif; }
+h1 { text-align:center; color:#ff0000; }
+.container { padding:20px; }
+button { background:#ff0000; color:#fff; border:none; padding:10px 20px; margin-top:10px; cursor:pointer; font-size:1em; }
+input, select { width:100%; padding:10px; margin:5px 0; font-size:1em; }
+#fila { margin-top:20px; }
+.cliente { padding:10px; border-bottom:1px solid #333; }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Bem-vindo à Barbearia XB</h1>
+<input type="text" id="nome" placeholder="Digite seu nome">
+<select id="servico">
+<option value="Corte">Corte - 40min</option>
+<option value="Barba">Barba - 30min</option>
+<option value="Sobrancelha">Sobrancelha - 10min</option>
+</select>
+<select id="barbeiro">
+<option value="Vini">Vini</option>
+<option value="Alison">Alison</option>
+<option value="Tanto faz">Tanto faz</option>
+</select>
+<button onclick="entrarFila()">Entrar na fila</button>
+
+<div id="fila">
+<h2>Fila Atual</h2>
+<div id="lista"></div>
+</div>
+</div>
+
+<script>
+// Mock inicial (simulação)
+let fila = [];
+
+function atualizarFila() {
+  const lista = document.getElementById('lista');
+  lista.innerHTML = '';
+  fila.forEach((c, i) => {
+    let div = document.createElement('div');
+    div.className = 'cliente';
+    div.innerHTML = `${i+1}. ${c.nome} - ${c.servico} (${c.barbeiro})`;
+    lista.appendChild(div);
+  });
+}
+
+function entrarFila() {
+  const nome = document.getElementById('nome').value;
+  const servico = document.getElementById('servico').value;
+  const barbeiro = document.getElementById('barbeiro').value;
+  if(nome=="") { alert("Digite seu nome"); return; }
+  fila.push({nome, servico, barbeiro});
+  atualizarFila();
+  document.getElementById('nome').value="";
+}
+
+// Atualiza a fila a cada 1s (simulação)
+setInterval(()=>{ atualizarFila(); }, 1000);
+</script>
+</body>
+</html>
